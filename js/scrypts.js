@@ -10,13 +10,14 @@
         class Particle {
             constructor(x, y, radious, color) {
                 this.gravity = 1;
-                this.fractionGravity = 0.9;
+                this.dumping = 0.88;
                 this.initSpeedY = 1;
                 this.x = x;
                 this.y = y;
                 this.dy = y;
                 this.radious = radious;
                 this.color = color;
+                this.distance = undefined;
             }
             draw(crc) {
                 crc.beginPath();
@@ -25,19 +26,27 @@
                 crc.fill();
             }
             update() {
-                if (this.y + this.radious >= canvas.height) {
-                    this.initSpeedY = -this.initSpeedY * this.fractionGravity;
-                    
-                } else if (this.y + this.radious < canvas.height) {
-                    this.initSpeedY += this.gravity;
+                this.initSpeedY += this.gravity;
+                this.y += this.initSpeedY;
+
+                if(this.y + this.radious >= canvas.height){
+                    this.y = canvas.height - this.radious;
+                    this.initSpeedY *= -this.dumping;
                 }
-                    this.y += this.initSpeedY;
-                    this.dy = this.y
+
+                // this.initSpeedY += this.gravity;
+                // this.y += this.initSpeedY;
+                
+
+                // if (this.y + this.radious >= canvas.height) {
+                //     this.initSpeedY = -this.initSpeedY * this.dumping;
+                //     this.y = canvas.height - this.radious;
+                   
+                // }
             }
         }
 
-        particles.push(new Particle(500, 700, 50, 'orange'));
-        console.log(particles)
+        particles.push(new Particle(500, 500, 50, 'orange'));
 
         const animate = () => {
             crc.clearRect(0, 0, canvas.width, canvas.height);
