@@ -81,6 +81,8 @@
             prevTime = timeStamp;
 
             if (time >= fps) {
+                //crc.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                //crc.fillRect(0, 0, canvas.width, canvas.height);
                 crc.clearRect(0, 0, canvas.width, canvas.height);
 
                 particles.forEach(particle => {
